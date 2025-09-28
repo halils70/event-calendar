@@ -1,5 +1,6 @@
 from django.contrib import admin
 from calendarapp import models
+from accounts.models import User
 
 
 @admin.register(models.Event)
@@ -23,3 +24,10 @@ class EventMemberAdmin(admin.ModelAdmin):
     model = models.EventMember
     list_display = ["id", "event", "user", "created_at", "updated_at"]
     list_filter = ["event"]
+
+class UserAdmin(admin.ModelAdmin):
+    model = User
+    list_display = ["id", "username", "email", "is_active", "is_staff", "created_at", "updated_at"]
+    list_filter = ["is_active", "is_staff"]
+    search_fields = ["username", "email"]
+admin.site.register(User)
