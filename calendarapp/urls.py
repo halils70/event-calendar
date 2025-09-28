@@ -43,4 +43,6 @@ urlpatterns = [
         views.MeasurementLogListView.as_view(),
         name="measurement_log_list",
     ),
+    path("help/", views.help_view, name="help"),
+    path("about/", views.about_view, name="about"),
 ]

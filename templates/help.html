@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Help{% endblock title %}
+
+{% block breadcrumb %}
+<div>
+    <h1><i class="fa fa-dashboard"></i> Help</h1>
+
+</div>
+
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div id="accordion" style="font-size: large;">
+  <h3>How to add my medicine into my calendar?</h3>
+  <div>
+    <p>Click calendar from left side menu buttons and click calendar date you want to add. 
+        Type your medicine information you want to follow up according to it's manuel.</p>
+  </div>
+  <h3>May I save my measurements into a log such as blood preasure or sugar level?</h3>
+  <div>
+    <p>Yes, it is possible clicking measurement log item from left side menu.  </p>
+  </div>
+  <h3>May I list my completed or continuous medicines?</h3>
+  <div>
+    <p>From left side menu, you can get summary of status of your medicine as a list. </p>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block extrascripts %}
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#accordion" ).accordion({
+      collapsible: true
+    });
+  } );
+  </script>
+{% endblock extrascripts %}

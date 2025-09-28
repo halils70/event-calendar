@@ -1,4 +1,8 @@
-from .event_list import AllEventsListView, CompletedEventsListView, RunningEventsListView, UpcomingEventsListView, MeasurementLogListView
+from .event_list import (AllEventsListView, 
+                         CompletedEventsListView, 
+                         RunningEventsListView, 
+                         UpcomingEventsListView, 
+                         MeasurementLogListView)
 from .other_views import (
     CalendarViewNew,
     CalendarView,
@@ -10,7 +14,8 @@ from .other_views import (
     delete_event,
     next_week,
     next_day,
-    
+    help_view,
+    about_view
 )
 
 
@@ -30,4 +35,6 @@ __all__ = [
     next_week,
     next_day,
     MeasurementLogListView,
+    help_view,
+    about_view,
 ]

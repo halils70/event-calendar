@@ -183,3 +183,9 @@ def next_day(request, event_id):
         context = super().get_context_data(**kwargs)
         context['now'] = datetime.now()
         return context  
+
+def help_view(request):
+    return render(request, "help.html") 
+
+def about_view(request):
+    return render(request, "about.html") 
