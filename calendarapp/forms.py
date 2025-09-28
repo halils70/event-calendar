@@ -1,7 +1,6 @@
 from django.forms import ModelForm, DateInput
-from calendarapp.models import Event, EventMember
+from calendarapp.models import Event, EventMember, MeasurementLog
 from django import forms
-
 
 class EventForm(ModelForm):
     class Meta:
@@ -35,8 +34,14 @@ class EventForm(ModelForm):
         self.fields["start_time"].input_formats = ("%Y-%m-%dT%H:%M",)
         self.fields["end_time"].input_formats = ("%Y-%m-%dT%H:%M",)
 
-
 class AddMemberForm(forms.ModelForm):
     class Meta:
         model = EventMember
         fields = ["user"]
+
+class MeassurementlogForm(ModelForm):
+    model = MeasurementLog
+    fields = ["title","user", "measurement_time", "mesaurement_value", "units", "notes"]
+    
+   
+   

@@ -1,7 +1,6 @@
 from django.views.generic import ListView
 
-from calendarapp.models import Event
-
+from calendarapp.models import Event, MeasurementLog
 
 class AllEventsListView(ListView):
     """ All event list views """
@@ -11,7 +10,6 @@ class AllEventsListView(ListView):
 
     def get_queryset(self):
         return Event.objects.get_all_events(user=self.request.user)
-
 
 class RunningEventsListView(ListView):
     """ Running events list view """
@@ -40,5 +38,12 @@ class CompletedEventsListView(ListView):
     def get_queryset(self):
         return Event.objects.get_completed_events(user=self.request.user)
     
+class MeasurementLogListView(ListView):
+    """ Measurement log list view """
+
+    template_name = "calendarapp/measurement_log_list.html"
+    model = MeasurementLog
+    def get_queryset(self):
+        return MeasurementLog.objects.filter(user=self.request.user).order_by('-measurement_time')
 
 

@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Medicine Calendar{% endblock title %}
+
+{% block extracss %}
+  <link href="{% static 'calender/main.css' %}" rel="stylesheet" />
+{% endblock extracss %}
+
+{% block content %}
+<h2>Measurement Log</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Experiment Title</th>
+            <th scope="col">Measurement Value</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in object_list %}
+        <tr>
+            <td>{{ log.measurement_time|date:"Y-m-d" }}</td>
+            <td>{{ log.measurement_time|date:"H:i" }}</td>
+            <td>{{ log.medicine }}</td>
+            <td>{{ log.mesaurement_value }}</td>
+            <td>{{ log.units }}</td>
+            <td>{{ log.notes }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No measurement logs available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+{% endblock content %}

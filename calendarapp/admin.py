@@ -31,3 +31,11 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ["is_active", "is_staff"]
     search_fields = ["username", "email"]
 admin.site.register(User)
+
+
+class MeasurementLogAdmin(admin.ModelAdmin):
+    model = models.MeasurementLog
+    list_display = ["id", "title", "user", "measurement_time", "measurement_value", "units", "notes"]
+    list_filter = ["title", "user", "measurement_time"]
+    search_fields = ["title", "measurement_time"]
+admin.site.register(models.MeasurementLog)

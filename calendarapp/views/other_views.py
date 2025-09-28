@@ -12,9 +12,9 @@ from django.urls import reverse_lazy, reverse
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
-from calendarapp.models import EventMember, Event
+from calendarapp.models import EventMember, Event, MeasurementLog
 from calendarapp.utils import Calendar
-from calendarapp.forms import EventForm, AddMemberForm
+from calendarapp.forms import EventForm, AddMemberForm, MeassurementlogForm
 
 
 def get_date(req_day):
@@ -54,7 +54,6 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
         context["next_month"] = next_month(d)
         return context
 
-
 @login_required(login_url="signup")
 def create_event(request):
     form = EventForm(request.POST or None)
@@ -73,12 +72,10 @@ def create_event(request):
         return HttpResponseRedirect(reverse("calendarapp:calendar"))
     return render(request, "event.html", {"form": form})
 
-
 class EventEdit(generic.UpdateView):
     model = Event
     fields = ["title", "description", "start_time", "end_time"]
     template_name = "event.html"
-
 
 @login_required(login_url="signup")
 def event_details(request, event_id):
@@ -86,7 +83,6 @@ def event_details(request, event_id):
     eventmember = EventMember.objects.filter(event=event)
     context = {"event": event, "eventmember": eventmember}
     return render(request, "event-details.html", context)
-
 
 def add_eventmember(request, event_id):
     forms = AddMemberForm()
@@ -103,7 +99,6 @@ def add_eventmember(request, event_id):
                 print("--------------User limit exceed!-----------------")
     context = {"form": forms}
     return render(request, "add_member.html", context)
-
 
 class EventMemberDeleteView(generic.DeleteView):
     model = EventMember
@@ -145,8 +140,6 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
         context = {"form": forms}
         return render(request, self.template_name, context)
 
-
-
 def delete_event(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     if request.method == 'POST':
@@ -179,3 +172,14 @@ def next_day(request, event_id):
         return JsonResponse({'message': 'Sucess!'})
     else:
         return JsonResponse({'message': 'Error!'}, status=400)
+
+    model = MeasurementLog
+    template_name = "measurement_log_list.html"
+    context_object_name = "measurement_logs"
+    login_url = "accounts:signin"
+    def get_queryset(self):
+        return MeasurementLog.objects.filter(user=self.request.user).order_by('-measurement_time')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = datetime.now()
+        return context  

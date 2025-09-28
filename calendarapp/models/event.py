@@ -41,7 +41,6 @@ class EventManager(models.Manager):
         )
         return upcoming_events
 
-
 class Event(EventAbstract):
     """ Event model """
 
@@ -63,3 +62,24 @@ class Event(EventAbstract):
     def get_html_url(self):
         url = reverse("calendarapp:event-detail", args=(self.id,))
         return f'<a href="{url}"> {self.title} </a>'
+
+class MeasurementLog(models.Model):
+    """ Measurement log model """
+    class measurementUnits(models.TextChoices):
+        MG_DL = "mg/dL", "mg/dL" # Blood glucose
+        MMOL_L = "mmol/L", "mmol/L"  # Blood glucose
+        PERCENT = "%", "%" # HbA1c
+        BPM = "bpm", "bpm" # Heart rate
+        MM_HG = "mmHg", "mmHg" # Blood pressure
+        CELSIUS = "Celsius", "Celsius" # Body temperature
+        FAHRENHEIT = "Fahrenheit", "Fahrenheit" # Body temperature
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    measurement_time = models.DateTimeField(auto_now_add=True)
+    mesaurement_value = models.FloatField()
+    units = models.CharField(max_length=10, choices=measurementUnits.choices)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"MeasurementLog for {self.title} at {self.measurement_time}"
