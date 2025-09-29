@@ -5,7 +5,6 @@ from django.urls import reverse
 from calendarapp.models import EventAbstract
 from accounts.models import User
 
-
 class EventManager(models.Manager):
     """ Event manager """
 
@@ -43,7 +42,62 @@ class EventManager(models.Manager):
 
 class Event(EventAbstract):
     """ Event model """
-
+    class MedicineFrequency(models.TextChoices):
+        ONCE = "Once", "Once"
+        DAILY = "Daily", "Daily"
+        WEEKLY = "Weekly", "Weekly"
+        MONTHLY = "Monthly", "Monthly"
+        YEARLY = "Yearly", "Yearly"
+    class MedicineTakingType(models.TextChoices):
+        BEFORE_FOOD = "Before Food", "Before Food"
+        AFTER_FOOD = "After Food", "After Food"
+        WITH_FOOD = "With Food", "With Food"
+        EMPTY_STOMACH = "Empty Stomach", "Empty Stomach"
+        ANYTIME = "Anytime", "Anytime"
+    class MedicineUnit(models.TextChoices):
+        MG = "mg", "mg"
+        ML = "ml", "ml"
+        UNITS = "units", "units"
+        PILL = "pill", "pill"
+        TABLET = "tablet", "tablet"
+        CAPSULE = "capsule", "capsule"
+        DROP = "drop", "drop"
+        PUFF = "puff", "puff"
+    class MedicineType(models.TextChoices):
+        TABLET = "Tablet", "Tablet"
+        CAPSULE = "Capsule", "Capsule"
+        SYRUP = "Syrup", "Syrup"
+        INJECTION = "Injection", "Injection"
+        OINTMENT = "Ointment", "Ointment"
+        CREAM = "Cream", "Cream"
+        LOTION = "Lotion", "Lotion"
+        INHALER = "Inhaler", "Inhaler"
+        DROPS = "Drops", "Drops"
+        PATCH = "Patch", "Patch"
+        SUPPOSITORY = "Suppository", "Suppository"
+        POWDER = "Powder", "Powder"
+        GEL = "Gel", "Gel"
+        SPRAY = "Spray", "Spray"
+        OTHER = "Other", "Other"
+    class MedicineReminderMethod(models.TextChoices):
+        NOTIFICATION = "Notification", "Notification"
+        EMAIL = "Email", "Email"
+        SMS = "SMS", "SMS"
+        CALL = "Call", "Call"
+        OTHER = "Other", "Other"
+    class MedicineDurationType(models.TextChoices):
+        DAYS = "Days", "Days"
+        WEEKS = "Weeks", "Weeks"
+        MONTHS = "Months", "Months"
+        UNTIL_FINISHED = "Until Finished", "Until Finished"
+        LIFETIME = "Lifetime", "Lifetime"
+    medicineFrequency = models.CharField(max_length=10, choices=MedicineFrequency.choices, default=MedicineFrequency.ONCE)
+    medicineTakingType = models.CharField(max_length=20, choices=MedicineTakingType.choices, default=MedicineTakingType.ANYTIME)
+    medicineUnit = models.CharField(max_length=10, choices=MedicineUnit.choices, default=MedicineUnit.PILL)
+    medicineType = models.CharField(max_length=20, choices=MedicineType.choices, default=MedicineType.TABLET)
+    medicineReminderMethod = models.CharField(max_length=15, choices=MedicineReminderMethod.choices, default=MedicineReminderMethod.NOTIFICATION)
+    medicineDurationType = models.CharField(max_length=15, choices=MedicineDurationType.choices, default=MedicineDurationType.DAYS)
+    medicineDosage = models.FloatField(default=1.0)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="events")
     title = models.CharField(max_length=200)
     description = models.TextField()
