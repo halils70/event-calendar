@@ -14,12 +14,12 @@ class EventForm(ModelForm):
         # datetime-local is a HTML5 input type
         widgets = {
             "title": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": "Enter event title"}
+                attrs={"class": "form-control", "placeholder": "Enter medicine title"}
             ),
             "description": forms.Textarea(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "Enter event description",
+                    "placeholder": "Enter note about your medicine",
                 }
             ),
             "start_time": DateInput(
@@ -37,7 +37,7 @@ class EventForm(ModelForm):
             "medicineReminderMethod": forms.Select(attrs={"class": "form-control"}),
             "medicineDurationType": forms.Select(attrs={"class": "form-control"}),
             "medicineDosage": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": "Enter event title"}
+                attrs={"class": "form-control", "placeholder": "Enter medicine title"}
             ),
         }
         exclude = ["user"]

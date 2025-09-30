@@ -3,9 +3,13 @@
 
 {% block title %}Help{% endblock title %}
 
+{% block extrahead %}
+  
+{% endblock extrahead %}
+
 {% block breadcrumb %}
 <div>
-    <h1><i class="fa fa-dashboard"></i> Help</h1>
+  <h1><i class="fa fa-dashboard"></i> Help</h1>
 
 </div>
 
@@ -13,34 +17,55 @@
 
 {% block content %}
 
-<div id="accordion" style="font-size: large;">
-  <h3>How to add my medicine into my calendar?</h3>
-  <div>
-    <p>Click calendar from left side menu buttons and click calendar date you want to add. 
-        Type your medicine information you want to follow up according to it's manuel.</p>
+<div class="accordion" id="accordionExample" style="font-size:larger;">
+  <div class="card" >
+    <div class="card-header" id="headingOne" >
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left" style="font-size: larger;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          How to add my medicine into my calendar?
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        Click calendar from left side menu buttons and click calendar date you want to add.
+        Type your medicine information you want to follow up according to it's manuel.
+      </div>
+    </div>
   </div>
-  <h3>May I save my measurements into a log such as blood preasure or sugar level?</h3>
-  <div>
-    <p>Yes, it is possible clicking measurement log item from left side menu.  </p>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left collapsed" style="font-size: larger;" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          May I save my measurements into a log such as blood preasure or sugar level?
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+        Yes, it is possible clicking measurement log item from left side menu.
+      </div>
+    </div>
   </div>
-  <h3>May I list my completed or continuous medicines?</h3>
-  <div>
-    <p>From left side menu, you can get summary of status of your medicine as a list. </p>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left collapsed" style="font-size: larger;" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          May I list my completed or continuous medicines?
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div class="card-body">
+        From left side menu, you can get summary of status of your medicine as a list.
+      </div>
+    </div>
   </div>
 </div>
 
 {% endblock content %}
 
 {% block extrascripts %}
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-  <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#accordion" ).accordion({
-      collapsible: true
-    });
-  } );
-  </script>
+
 {% endblock extrascripts %}
