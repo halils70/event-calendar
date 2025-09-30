@@ -20,6 +20,7 @@ class EventForm(ModelForm):
                 attrs={
                     "class": "form-control",
                     "placeholder": "Enter note about your medicine",
+                    "rows": 1,
                 }
             ),
             "start_time": DateInput(

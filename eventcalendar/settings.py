@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "calendarapp.apps.CalendarappConfig",
     "accounts.apps.AccountsConfig",
+    "captcha",
 ]
 
 MIDDLEWARE = [

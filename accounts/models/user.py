@@ -6,10 +6,8 @@ from django.contrib.auth.models import (
 )
 from django.utils.translation import gettext_lazy as _
 
-
 class UserManager(BaseUserManager):
     """ User manager """
-
     def _create_user(self, email, password=None, **extra_fields):
         """Creates and returns a new user using an email address"""
         if not email:  # check for an empty email
@@ -40,7 +38,6 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         return self._create_user(email, password, **extra_fields)
-
 
 class User(AbstractBaseUser, PermissionsMixin):
     """ Custom user model """

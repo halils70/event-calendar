@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
+from captcha.fields import CaptchaField
 
 from accounts.models import User
 
@@ -10,6 +11,7 @@ class SignInForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={"class": "form-control"})
     )
+    #captcha = CaptchaField()
 
 
 class SignUpForm(forms.ModelForm):
@@ -23,6 +25,7 @@ class SignUpForm(forms.ModelForm):
         widget=forms.PasswordInput(attrs={"class": "form-control"}),
         validators=[validate_password],
     )
+    #captcha = CaptchaField()
 
     class Meta:
         model = User

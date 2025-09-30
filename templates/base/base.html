@@ -3,7 +3,7 @@
 {% load static %}
 
 <head>
-    <meta name="description" content="Event Dashboard" />
+    <meta name="description" content="Medicine Foloow-Up Dashboard" />
     <title>{% block title %}{% endblock title %}</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -30,10 +30,15 @@
                 <input class="app-search__input" type="search" placeholder="Search" />
                 <button class="app-search__button"><i class="fa fa-search"></i></button>
             </li>
+            <!--Contact your doctor Menu-->
+                        <li class="dropdown">
+                <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications">
+                    <i class="fa fas fa-stethoscope fa-lg" data-toggle="tooltip" data-placement="bottom" title="Contact your MD"></i></a>
+               </li>      
             <!--Notification Menu-->
             <li class="dropdown">
-                <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i
-                        class="fa fa-bell-o fa-lg"></i></a>
+                <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications">
+                    <i class="fa fa-bell-o fa-lg" data-toggle="tooltip" data-placement="bottom" title="Check your Notifications"></i></a>
                 <ul class="app-notification dropdown-menu dropdown-menu-right">
                     <li class="app-notification__title">You have 4 new notifications.</li>
                     <div class="app-notification__content">
