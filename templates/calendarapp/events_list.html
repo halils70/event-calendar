@@ -28,17 +28,16 @@
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending"
-                                                style="width: 40.641px;">SL</th>
+                                                aria-label="Name: activate to sort column descending">
+                                                SL</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Position: activate to sort column ascending"
-                                                style="width: 417.312px;">Medicine Name</th>
+                                                colspan="1" aria-label="Position: activate to sort column ascending">                                                Medicine Name</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Office: activate to sort column ascending"
-                                                style="width: 189.281px;">Start Time</th>
+                                                colspan="1" aria-label="Office: activate to sort column ascending">
+                                                Start Time</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending"
-                                                style="width: 102.141px;">End Time</th>
+                                                colspan="1" aria-label="Age: activate to sort column ascending">
+                                                End Time</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -46,8 +45,8 @@
                                         <tr role="row" class="odd">
                                             <td class="sorting_1">{{ forloop.counter }}</td>
                                             <td>{{ event.title }}</td>
-                                            <td>{{ event.start_time }}</td>
-                                            <td>{{ event.end_time }}</td>
+                                            <td>{{ event.start_time|date:"d-m-Y H:i" }}</td>
+                                            <td>{{ event.end_time|date:"d-m-Y H:i" }}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>

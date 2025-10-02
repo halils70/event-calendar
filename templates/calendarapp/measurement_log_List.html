@@ -5,11 +5,11 @@
 
 {% block breadcrumb %}
 <div>
-    <h1><i class="fa fa-dashboard"></i> Medicine List</h1>
+    <h1><i class="fa fa-dashboard"></i> Measurement Log</h1>
 </div>
 <ul class="app-breadcrumb breadcrumb">
     <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-    <li class="breadcrumb-item"><a>Medicine List</a></li>
+    <li class="breadcrumb-item"><a>Measurement Log</a></li>
 </ul>
 {% endblock breadcrumb %}
 
@@ -26,12 +26,24 @@
                                     role="grid" aria-describedby="sampleTable_info">
                                     <thead>
                                         <tr role="row">
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Title</th>
-                                            <th>Measurement Value</th>
-                                            <th>Unit</th>
-                                            <th>Notes</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending">Date</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending">Time</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending">Title</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending">Value</th>
+                                            <th class="no-sort" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending">Unit</th>
+                                            <th class="no-sort" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending">Notes</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,7 +80,11 @@
             "lengthMenu": [5, 10, 25, 50],
             "ordering": true,
             "info": true,
-            "searching": true
+            "searching": true,
+            "columnDefs": [ {
+          "targets": 'no-sort',
+          "orderable": false,
+    } ]
         });
     });
 </script>
