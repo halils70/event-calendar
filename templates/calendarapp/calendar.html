@@ -41,7 +41,7 @@
             <div class="col-md-9">
                 <div id="calendar"></div>
             </div>
-
+<!-- Modal window -->
             <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" style="height:fit-content;"
                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
@@ -192,7 +192,6 @@
 <script src="{% static 'calender/main.js' %}"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
-
     function converterDataParaDjangoFormat(data) {
         const dataJS = new Date(data);
         const year = dataJS.getFullYear();
@@ -203,7 +202,6 @@
         const second = dataJS.getSeconds().toString().padStart(2, '0');
         const formatoDjango = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
         return formatoDjango;
-
     }
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
@@ -266,13 +264,11 @@
                 modalStart.textContent = start;
                 modalEnd.textContent = end;
                 modalDescripition.textContent = description;
-
-
                 modal.style.display = 'block';
             },
             editable: true,
             dayMaxEvents: true, // allow "more" link when too many events
-            events: {{ events| safe }},
+            events: {{ events|safe }},
         // events: [
         //   {
         //     title: 'All Day Event',
