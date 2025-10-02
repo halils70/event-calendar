@@ -1,16 +1,16 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %}Measurement Log{% endblock title %}
+{% block title %}Medicine List{% endblock title %}
 
 {% block breadcrumb %}
 <div>
-    <h1><i class="fa fa-dashboard"></i> Measurement List</h1>
+    <h1><i class="fa fa-dashboard"></i> Medicine List</h1>
 </div>
-    <ul class="app-breadcrumb breadcrumb">
-        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a>Medicine List</a></li>
-    </ul>
+<ul class="app-breadcrumb breadcrumb">
+    <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+    <li class="breadcrumb-item"><a>Medicine List</a></li>
+</ul>
 {% endblock breadcrumb %}
 
 {% block content %}
@@ -22,34 +22,21 @@
                     <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable"
+                                <table id="sampleTable" class="table table-hover table-bordered dataTable no-footer"
                                     role="grid" aria-describedby="sampleTable_info">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-sort="ascending"
-                                                aria-label="Date: activate to sort column descending"
-                                                style="width: 90.641px;">Date</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Position: activate to sort column ascending"
-                                                style="width: 50.312px;">Time</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Office: activate to sort column ascending"
-                                                style="width: 189.281px;">Title</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Office: activate to sort column ascending"
-                                                style="width: 110.281px;">Measurement Value</th>
-                                            <th class="" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending"
-                                                style="width: 30.141px;">Unit</th>
-                                            <th class="" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending"
-                                                style="width: 102.141px;">Notes</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Title</th>
+                                            <th>Measurement Value</th>
+                                            <th>Unit</th>
+                                            <th>Notes</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for log in object_list %}
-                                        <tr role="row" class="odd"></tr>
+                                        <tr>
                                             <td>{{ log.measurement_time|date:"d-m-Y" }}</td>
                                             <td>{{ log.measurement_time|date:"H:i" }}</td>
                                             <td>{{ log.title }}</td>
@@ -67,12 +54,31 @@
             </div>
         </div>
     </div>
-
 </div>
 {% endblock content %}
 
 {% block extrascripts %}
 <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
-<script type="text/javascript">$('#sampleTable').DataTable();</script>
+<script>
+    $(document).ready(function () {
+        $('#sampleTable').DataTable({
+            "paging": true,
+            "pageLength": 5,
+            "lengthMenu": [5, 10, 25, 50],
+            "ordering": true,
+            "info": true,
+            "searching": true
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
 {% endblock extrascripts %}
