@@ -44,6 +44,11 @@ class MeasurementLogListView(ListView):
     template_name = "calendarapp/measurement_log_list.html"
     model = MeasurementLog
     def get_queryset(self):
-        return MeasurementLog.objects.filter(user=self.request.user).order_by('-measurement_time')
+        logList = MeasurementLog.objects.filter(
+            user=self.request.user,
+            is_active=True,
+            is_deleted=False,
+            ).order_by('-measurement_time')
+        return logList
 
 

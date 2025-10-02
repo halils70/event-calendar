@@ -35,7 +35,8 @@ admin.site.register(User)
 
 class MeasurementLogAdmin(admin.ModelAdmin):
     model = models.MeasurementLog
-    list_display = ["id", "title", "user", "measurement_time", "measurement_value", "units", "notes"]
-    list_filter = ["title", "user", "measurement_time"]
+    list_display = ["id", "title", "user", "measurement_time", "measurement_value", 
+                    "units", "notes", "created_at", "updated_at", "is_active", "is_deleted"]
+    list_filter = ["title", "user", "measurement_time", "is_active", "is_deleted"]
     search_fields = ["title", "measurement_time"]
 admin.site.register(models.MeasurementLog)

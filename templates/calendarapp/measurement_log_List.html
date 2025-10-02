@@ -6,9 +6,11 @@
 {% block breadcrumb %}
 <div>
     <h1><i class="fa fa-dashboard"></i> Measurement List</h1>
-
 </div>
-
+    <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item"><a>Medicine List</a></li>
+    </ul>
 {% endblock breadcrumb %}
 
 {% block content %}
@@ -26,7 +28,7 @@
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending"
+                                                aria-label="Date: activate to sort column descending"
                                                 style="width: 90.641px;">Date</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
@@ -37,22 +39,24 @@
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
                                                 style="width: 110.281px;">Measurement Value</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                            <th class="" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Age: activate to sort column ascending"
                                                 style="width: 30.141px;">Unit</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                            <th class="" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Age: activate to sort column ascending"
                                                 style="width: 102.141px;">Notes</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for log in object_list %}
-                                        <td>{{ log.measurement_time|date:"d-m-Y" }}</td>
-                                        <td>{{ log.measurement_time|date:"H:i" }}</td>
-                                        <td>{{ log.title }}</td>
-                                        <td>{{ log.mesaurement_value }}</td>
-                                        <td>{{ log.units }}</td>
-                                        <td>{{ log.notes }}</td>
+                                        <tr role="row" class="odd"></tr>
+                                            <td>{{ log.measurement_time|date:"d-m-Y" }}</td>
+                                            <td>{{ log.measurement_time|date:"H:i" }}</td>
+                                            <td>{{ log.title }}</td>
+                                            <td>{{ log.mesaurement_value }}</td>
+                                            <td>{{ log.units }}</td>
+                                            <td>{{ log.notes }}</td>
+                                        </tr>
                                         {% endfor %}
                                     </tbody>
                                 </table>
