@@ -2,7 +2,12 @@ from .event_list import (AllEventsListView,
                          CompletedEventsListView, 
                          RunningEventsListView, 
                          UpcomingEventsListView, 
-                         MeasurementLogListView)
+                         MeasurementLogListView,
+                         MeasurementLogCreateView,
+                         MeasurementLogUpdateView,
+                         MeasurementLogDeleteView,
+                         )
+
 from .other_views import (
     CalendarViewNew,
     CalendarView,

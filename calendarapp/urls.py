@@ -1,9 +1,7 @@
 from django.urls import path
-
 from . import views
 
 app_name = "calendarapp"
-
 
 urlpatterns = [
     path("calender/", views.CalendarViewNew.as_view(), name="calendar"),
@@ -42,6 +40,22 @@ urlpatterns = [
         "measurement-log-list/",
         views.MeasurementLogListView.as_view(),
         name="measurement_log_list",
+    ),
+    
+    path(
+        "measurement-log/new/",
+        views.MeasurementLogCreateView.as_view(),
+        name="measurement_log_new",
+    ),
+    path(
+        "measurement-log/edit/<int:pk>/",
+        views.MeasurementLogUpdateView.as_view(),
+        name="measurement_log_edit",
+    ),
+    path(
+        "measurement-log/<int:pk>/remove",
+        views.MeasurementLogDeleteView.as_view(),
+        name="measurement_log_remove",
     ),
     path("help/", views.help_view, name="help"),
     path("about/", views.about_view, name="about"),

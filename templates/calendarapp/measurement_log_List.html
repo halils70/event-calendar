@@ -44,6 +44,9 @@
                                             <th class="no-sort" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-sort="ascending"
                                                 aria-label="Name: activate to sort column descending">Notes</th>
+                                            <th class="no-sort" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,6 +58,14 @@
                                             <td>{{ log.mesaurement_value }}</td>
                                             <td>{{ log.units }}</td>
                                             <td>{{ log.notes }}</td>
+                                            <td>
+                                                <a href="{% url 'calendarapp:measurement_log_edit' log.id %}"
+                                                    class="btn btn-primary btn-sm" data-toggle="tooltip"
+                                                    data-placement="left" title="Update"><i class="fa fa-edit"></i></a>
+                                                <a href="{% url 'calendarapp:measurement_log_remove' log.id %}"
+                                                    class="btn btn-danger btn-sm" data-toggle="tooltip"
+                                                    data-placement="left" title="Delete"><i class="fa fa-trash"></i></a>
+                                            </td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -81,10 +92,10 @@
             "ordering": true,
             "info": true,
             "searching": true,
-            "columnDefs": [ {
-          "targets": 'no-sort',
-          "orderable": false,
-    } ]
+            "columnDefs": [{
+                "targets": 'no-sort',
+                "orderable": false,
+            }]
         });
     });
 </script>

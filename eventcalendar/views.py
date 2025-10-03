@@ -1,7 +1,9 @@
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from calendarapp.forms import MeassurementlogForm
 from calendarapp.models import Event
 
 class DashboardView(LoginRequiredMixin, View):
@@ -22,3 +24,4 @@ class DashboardView(LoginRequiredMixin, View):
             "upcoming_events": upcoming_events
         }
         return render(request, self.template_name, context)
+

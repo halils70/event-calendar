@@ -1,6 +1,8 @@
 from django.views.generic import ListView
-
 from calendarapp.models import Event, MeasurementLog
+from django.shortcuts import redirect
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 class AllEventsListView(ListView):
     """ All event list views """
@@ -51,5 +53,30 @@ class MeasurementLogListView(ListView):
             is_deleted=False,
             ).order_by('-measurement_time')
         return logList
+    
+class MeasurementLogCreateView(CreateView):
+    """ Create measurement log view """
+
+    model = MeasurementLog
+    fields = ['measurement_time', 'weight', 'body_fat_percentage', 'muscle_mass', 'notes']  
+    template_name = "calendarapp/measurement_log_form.html"
+    success_url = reverse_lazy("calendarapp:measurement_log_list")
+
+class MeasurementLogUpdateView(UpdateView):
+    """ Update measurement log view """
+
+    model = MeasurementLog
+    fields = ['measurement_time', 'weight', 'body_fat_percentage', 'muscle_mass', 'notes']  
+    template_name = "calendarapp/measurement_log_form.html"
+    success_url = reverse_lazy("calendarapp:measurement_log_list")
+
+class MeasurementLogDeleteView(DeleteView):
+    """ Delete measurement log view """
+
+    model = MeasurementLog
+    template_name = "calendarapp/measurement_log_confirm_delete.html"
+    print("Pk: {modal.pk}" )
+    success_url = reverse_lazy("calendarapp:measurement_log_list")
+
 
 

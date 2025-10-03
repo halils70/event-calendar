@@ -1,5 +1,4 @@
 # cal/views.py
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.views import generic
@@ -11,11 +10,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-
 from calendarapp.models import EventMember, Event, MeasurementLog
 from calendarapp.utils import Calendar
 from calendarapp.forms import EventForm, AddMemberForm, MeassurementlogForm
-
 
 def get_date(req_day):
     if req_day:
@@ -23,13 +20,11 @@ def get_date(req_day):
         return date(year, month, day=1)
     return datetime.today()
 
-
 def prev_month(d):
     first = d.replace(day=1)
     prev_month = first - timedelta(days=1)
     month = "month=" + str(prev_month.year) + "-" + str(prev_month.month)
     return month
-
 
 def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]
@@ -37,7 +32,6 @@ def next_month(d):
     next_month = last + timedelta(days=1)
     month = "month=" + str(next_month.year) + "-" + str(next_month.month)
     return month
-
 
 class CalendarView(LoginRequiredMixin, generic.ListView):
     login_url = "accounts:signin"
@@ -189,3 +183,5 @@ def help_view(request):
 
 def about_view(request):
     return render(request, "about.html") 
+
+
