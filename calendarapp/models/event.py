@@ -130,7 +130,7 @@ class MeasurementLog(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    measurement_time = models.DateTimeField(auto_now_add=True)
+    measurement_time = models.DateTimeField()
     mesaurement_value = models.FloatField()
     units = models.CharField(max_length=10, choices=measurementUnits.choices)
     notes = models.TextField(blank=True, null=True)

@@ -66,7 +66,7 @@ class MeasurementLogUpdateView(UpdateView):
     """ Update measurement log view """
 
     model = MeasurementLog
-    fields = ['measurement_time', 'weight', 'body_fat_percentage', 'muscle_mass', 'notes']  
+    fields = ['title', 'mesaurement_value', 'notes']  
     template_name = "calendarapp/measurement_log_form.html"
     success_url = reverse_lazy("calendarapp:measurement_log_list")
 
@@ -75,7 +75,6 @@ class MeasurementLogDeleteView(DeleteView):
 
     model = MeasurementLog
     template_name = "calendarapp/measurement_log_confirm_delete.html"
-    print("Pk: {modal.pk}" )
     success_url = reverse_lazy("calendarapp:measurement_log_list")
 
 

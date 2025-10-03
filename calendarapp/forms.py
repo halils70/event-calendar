@@ -64,3 +64,24 @@ class MeassurementlogForm(ModelForm):
         "units",
         "notes",
     ]
+    widgets = {
+        "title": forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Enter measurement title"}
+        ),
+        "user": forms.HiddenInput(),
+        "measurement_time": DateInput(
+            attrs={"type": "datetime-local", "class": "form-control"},
+            format="%Y-%m-%dT%H:%M",
+        ),
+        "mesaurement_value": forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Enter measurement value"}
+        ),
+        "units": forms.Select(attrs={"class": "form-control"}),
+        "notes": forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Enter note about your measurement",
+                "rows": 1,
+            }
+        ),
+    }
