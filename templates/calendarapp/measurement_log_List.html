@@ -1,115 +1,62 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %}Medicine List{% endblock title %}
-
-{% block breadcrumb %}
-<div>
-    <h1><i class="fa fa-dashboard"></i> Measurement Log</h1>
-</div>
-<ul class="app-breadcrumb breadcrumb">
-    <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-    <li class="breadcrumb-item"><a>Measurement Log</a></li>
-</ul>
-{% endblock breadcrumb %}
+{% block title %}Measurement Logs{% endblock title %}
 
 {% block content %}
 <div class="row">
-    <div class="col-md-12">
-        <div class="tile">
-            <div class="tile-body">
-                <div class="table-responsive">
-                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table id="sampleTable" class="table table-hover table-bordered dataTable no-footer"
-                                    role="grid" aria-describedby="sampleTable_info">
-                                    <thead>
-                                        <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending">Date</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending">Time</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending">Title</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending">Value</th>
-                                            <th class="no-sort" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending">Unit</th>
-                                            <th class="no-sort" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending">Notes</th>
-                                            <th class="no-sort" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for log in object_list %}
-                                        <tr>
-                                            <td>{{ log.measurement_time|date:"d-m-Y" }}</td>
-                                            <td>{{ log.measurement_time|date:"H:i" }}</td>
-                                            <td>{{ log.title }}</td>
-                                            <td>{{ log.mesaurement_value }}</td>
-                                            <td>{{ log.units }}</td>
-                                            <td>{{ log.notes }}</td>
-                                            <td>
-                                                <a href="{% url 'calendarapp:measurement_log_edit' log.id %}"
-                                                    class="btn btn-primary btn-sm" data-toggle="tooltip"
-                                                    data-placement="left" title="Update"><i class="fa fa-edit"></i></a>
-                                                <a href="{% url 'calendarapp:measurement_log_remove' log.id %}"
-                                                    class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                                    data-placement="left" title="Delete"><i class="fa fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="col-md-12">
+    <div class="tile">
+      <div class="tile-body">
+        <table id="measurementTable" class="table table-striped table-bordered"></table>
+      </div>
     </div>
+  </div>
 </div>
+
+<script id="measurement-data" type="application/json">
+  {{ logs_json|safe }}
+</script>
 {% endblock content %}
 
 {% block extrascripts %}
-<script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css"/>
+
 <script>
-    $(document).ready(function () {
-        $('#sampleTable').DataTable({
-            "responsive": true,
-            "paging": true,
-            "pageLength": 5,
-            "lengthMenu": [5, 10, 25, 50],
-            "ordering": true,
-            "info": true,
-            "searching": true,
-            
-            "columnDefs": [{
-                "targets": 'no-sort',
-                "orderable": false,
-                
-            }]
-            
-        });
+$(document).ready(function () {
+    const data = JSON.parse(document.getElementById("measurement-data").textContent);
+
+    const rows = data.map(log => [
+        log.date,
+        log.time,
+        log.title,
+        log.value,
+        log.unit,
+        log.notes,
+        `
+          <a href="${log.edit_url}" class="btn btn-primary btn-sm" title="Edit">
+             <i class="fa fa-edit"></i>
+          </a>
+          <a href="${log.delete_url}" class="btn btn-danger btn-sm" title="Delete">
+             <i class="fa fa-trash"></i>
+          </a>
+        `
+    ]);
+
+    $('#measurementTable').DataTable({
+        data: rows,
+        columns: [
+            { title: "Date" },
+            { title: "Time" },
+            { title: "Title" },
+            { title: "Value" },
+            { title: "Unit" },
+            { title: "Notes" },
+            { title: "Action", orderable: false, searchable: false }
+        ]
     });
+});
 </script>
-
-
-
-
-
-
-
-
-
 {% endblock extrascripts %}

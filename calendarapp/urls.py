@@ -38,7 +38,7 @@ urlpatterns = [
     ),
         path(
         "measurement-log-list/",
-        views.MeasurementLogListView.as_view(),
+        views.measurement_log_list,
         name="measurement_log_list",
     ),
     

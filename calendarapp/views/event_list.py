@@ -1,8 +1,9 @@
 from django.views.generic import ListView
 from calendarapp.models import Event, MeasurementLog
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+
 
 class AllEventsListView(ListView):
     """ All event list views """
@@ -76,6 +77,5 @@ class MeasurementLogDeleteView(DeleteView):
     model = MeasurementLog
     template_name = "calendarapp/measurement_log_confirm_delete.html"
     success_url = reverse_lazy("calendarapp:measurement_log_list")
-
 
 

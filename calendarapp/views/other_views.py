@@ -13,6 +13,8 @@ from django.shortcuts import get_object_or_404
 from calendarapp.models import EventMember, Event, MeasurementLog
 from calendarapp.utils import Calendar
 from calendarapp.forms import EventForm, AddMemberForm, MeassurementlogForm
+from django.core.serializers import serialize
+import json
 
 def get_date(req_day):
     if req_day:
@@ -184,4 +186,24 @@ def help_view(request):
 def about_view(request):
     return render(request, "about.html") 
 
+def measurement_log_list(request):
+    logs  = MeasurementLog.objects.filter(user=request.user)
+
+    logs_data = []
+    for log in logs:
+        logs_data.append({
+            "id": log.id,
+            "date": log.measurement_time.strftime("%d-%m-%Y"),
+            "time": log.measurement_time.strftime("%H:%M"),
+            "title": log.title,
+            "value": str(log.mesaurement_value),
+            "unit": log.units,
+            "notes": log.notes or "",
+            "edit_url": reverse("calendarapp:measurement_log_edit", args=[log.id]),
+            "delete_url": reverse("calendarapp:measurement_log_remove", args=[log.id]),
+        })
+
+    return render(request, "calendarapp/measurement_log_list.html", {
+        "logs_json": json.dumps(logs_data)
+    })
 

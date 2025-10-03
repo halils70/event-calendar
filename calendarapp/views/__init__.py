@@ -20,7 +20,8 @@ from .other_views import (
     next_week,
     next_day,
     help_view,
-    about_view
+    about_view,
+    measurement_log_list,
 )
 
 
