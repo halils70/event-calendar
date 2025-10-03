@@ -129,9 +129,9 @@ class MeasurementLog(models.Model):
         FAHRENHEIT = "Fahrenheit", "Fahrenheit" # Body temperature
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, unique=True)
     measurement_time = models.DateTimeField()
-    mesaurement_value = models.FloatField()
+    mesaurement_value = models.DecimalField(decimal_places=2, max_digits=10)
     units = models.CharField(max_length=10, choices=measurementUnits.choices)
     notes = models.TextField(blank=True, null=True)
     

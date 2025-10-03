@@ -86,16 +86,20 @@
 <script>
     $(document).ready(function () {
         $('#sampleTable').DataTable({
+            "responsive": true,
             "paging": true,
             "pageLength": 5,
             "lengthMenu": [5, 10, 25, 50],
             "ordering": true,
             "info": true,
             "searching": true,
+            
             "columnDefs": [{
                 "targets": 'no-sort',
                 "orderable": false,
+                
             }]
+            
         });
     });
 </script>

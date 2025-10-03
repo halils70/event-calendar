@@ -7,10 +7,18 @@ class EventForm(ModelForm):
     class Meta:
         model = Event
         fields = [
-                "title", "description", "medicineFrequency", "medicineTakingType", "medicineUnit", 
-                  "medicineType", "medicineReminderMethod", "medicineDurationType", "medicineDosage",
-                  "start_time", "end_time"
-                  ]
+            "title",
+            "description",
+            "medicineFrequency",
+            "medicineTakingType",
+            "medicineUnit",
+            "medicineType",
+            "medicineReminderMethod",
+            "medicineDurationType",
+            "medicineDosage",
+            "start_time",
+            "end_time",
+        ]
         # datetime-local is a HTML5 input type
         widgets = {
             "title": forms.TextInput(
@@ -49,39 +57,54 @@ class EventForm(ModelForm):
         self.fields["start_time"].input_formats = ("%Y-%m-%dT%H:%M",)
         self.fields["end_time"].input_formats = ("%Y-%m-%dT%H:%M",)
 
+
 class AddMemberForm(forms.ModelForm):
     class Meta:
         model = EventMember
         fields = ["user"]
 
+
 class MeassurementlogForm(ModelForm):
-    model = MeasurementLog
-    fields = [
-        "title",
-        "user",
-        "measurement_time",
-        "mesaurement_value",
-        "units",
-        "notes",
-    ]
-    widgets = {
-        "title": forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Enter measurement title"}
-        ),
-        "user": forms.HiddenInput(),
-        "measurement_time": DateInput(
-            attrs={"type": "datetime-local", "class": "form-control"},
-            format="%Y-%m-%dT%H:%M",
-        ),
-        "mesaurement_value": forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Enter measurement value"}
-        ),
-        "units": forms.Select(attrs={"class": "form-control"}),
-        "notes": forms.Textarea(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Enter note about your measurement",
-                "rows": 1,
-            }
-        ),
-    }
+    class Meta:
+        model = MeasurementLog
+        fields = [
+            "title",
+            "user",
+            "measurement_time",
+            "mesaurement_value",
+            "units",
+            "notes",
+        ]
+        widgets = {
+            "title": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter measurement title",
+                }
+            ),
+            "user": forms.HiddenInput(),
+            "measurement_time": forms.TextInput(
+                attrs={
+                    "class": "form-control datetimepicker-input",
+                    "data-td-target": "#datetimepicker1",
+                }
+            ),
+            "mesaurement_value": forms.NumberInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter measurement value",
+                }
+            ),
+            "units": forms.Select(attrs={"class": "form-control"}),
+            "notes": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter note about your measurement",
+                    "rows": 1,
+                }
+            ),
+        }
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields["measurement_time"].input_formats = ("%Y-%m-%dT%H:%M",)
