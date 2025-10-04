@@ -22,20 +22,22 @@
 {% block extrascripts %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css" />
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
 
 <script>
-$(document).ready(function () {
+  $(document).ready(function () {
     const data = JSON.parse(document.getElementById("measurement-data").textContent);
 
     const rows = data.map(log => [
-        log.date,
-        log.time,
-        log.title,
-        log.value,
-        log.unit,
-        log.notes,
-        `
+      log.date,
+      log.time,
+      log.title,
+      log.value,
+      log.unit,
+      log.notes,
+      `
           <a href="${log.edit_url}" class="btn btn-primary btn-sm" title="Edit">
              <i class="fa fa-edit"></i>
           </a>
@@ -46,17 +48,32 @@ $(document).ready(function () {
     ]);
 
     $('#measurementTable').DataTable({
-        data: rows,
-        columns: [
-            { title: "Date" },
-            { title: "Time" },
-            { title: "Title" },
-            { title: "Value" },
-            { title: "Unit" },
-            { title: "Notes" },
-            { title: "Action", orderable: false, searchable: false }
-        ]
+      data: rows,
+      dom: '<"d-flex justify-content-between align-items-center mb-2"Bf>rt<"d-flex justify-content-between align-items-center"ip>',
+      buttons: [
+        
+        {
+          text: '<i class="fa fa-plus"></i> Add Measurement',
+          className: 'btn btn-success',
+          action: function (e, dt, node, config) {
+            // Redirect or open modal
+             window.location.href = "{% url 'calendarapp:measurement_log_new' %}";
+          }
+        },
+        
+      ],
+      columns: [
+        { title: "Date" },
+        { title: "Time" },
+        { title: "Title" },
+        { title: "Value" },
+        { title: "Unit" },
+        { title: "Notes" },
+        { title: "Action", orderable: false, searchable: false }
+      ],
+      
     });
-});
+  });
+
 </script>
 {% endblock extrascripts %}

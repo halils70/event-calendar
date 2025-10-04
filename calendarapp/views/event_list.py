@@ -59,7 +59,7 @@ class MeasurementLogCreateView(CreateView):
     """ Create measurement log view """
 
     model = MeasurementLog
-    fields = ['measurement_time', 'weight', 'body_fat_percentage', 'muscle_mass', 'notes']  
+    fields = ['title', 'mesaurement_value', 'notes', 'measurement_time', 'units']  
     template_name = "calendarapp/measurement_log_form.html"
     success_url = reverse_lazy("calendarapp:measurement_log_list")
 

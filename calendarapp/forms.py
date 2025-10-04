@@ -2,7 +2,6 @@ from django.forms import ModelForm, DateInput
 from calendarapp.models import Event, EventMember, MeasurementLog
 from django import forms
 
-
 class EventForm(ModelForm):
     class Meta:
         model = Event
@@ -57,19 +56,16 @@ class EventForm(ModelForm):
         self.fields["start_time"].input_formats = ("%Y-%m-%dT%H:%M",)
         self.fields["end_time"].input_formats = ("%Y-%m-%dT%H:%M",)
 
-
 class AddMemberForm(forms.ModelForm):
     class Meta:
         model = EventMember
         fields = ["user"]
-
 
 class MeassurementlogForm(ModelForm):
     class Meta:
         model = MeasurementLog
         fields = [
             "title",
-            "user",
             "measurement_time",
             "mesaurement_value",
             "units",
@@ -83,11 +79,9 @@ class MeassurementlogForm(ModelForm):
                 }
             ),
             "user": forms.HiddenInput(),
-            "measurement_time": forms.TextInput(
-                attrs={
-                    "class": "form-control datetimepicker-input",
-                    "data-td-target": "#datetimepicker1",
-                }
+            "measurement_time": DateInput(
+                attrs={"type": "datetime-local", "class": "form-control"},
+                format="%Y-%m-%dT%H:%M",
             ),
             "mesaurement_value": forms.NumberInput(
                 attrs={
@@ -108,3 +102,9 @@ class MeassurementlogForm(ModelForm):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.fields["measurement_time"].input_formats = ("%Y-%m-%dT%H:%M",)
+
+        # def clean_title(self):
+        #     title = self.cleaned_data['title']
+        #     if MeasurementLog.objects.filter(title=title).exists():
+        #         raise forms.ValidationError("This measurement title is already taken. Please choose another.")
+        #     return title

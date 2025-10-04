@@ -22,6 +22,7 @@ from .other_views import (
     help_view,
     about_view,
     measurement_log_list,
+    measurement_log_new
 )
 
 

@@ -1,6 +1,6 @@
 # cal/views.py
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
 from django.utils.safestring import mark_safe
 from datetime import timedelta, datetime, date
@@ -13,8 +13,8 @@ from django.shortcuts import get_object_or_404
 from calendarapp.models import EventMember, Event, MeasurementLog
 from calendarapp.utils import Calendar
 from calendarapp.forms import EventForm, AddMemberForm, MeassurementlogForm
-from django.core.serializers import serialize
 import json
+from django.contrib import messages
 
 def get_date(req_day):
     if req_day:
@@ -207,3 +207,19 @@ def measurement_log_list(request):
         "logs_json": json.dumps(logs_data)
     })
 
+def measurement_log_new(request):
+    if request.method == "POST":
+        form = MeassurementlogForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            messages.add_message(request, messages.SUCCESS, "Your measurement log has been created successfully.")
+        else:
+            messages.add_message(request, messages.WARNING, "The title is already taken. Please choose another.")
+    else:
+        form = MeassurementlogForm()
+        return render(request, "calendarapp/measurement_log_form.html", {
+            "form": form
+        })
+    return render(request, "calendarapp/measurement_log_form.html", {"form": form})
